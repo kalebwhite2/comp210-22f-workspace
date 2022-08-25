@@ -1,5 +1,6 @@
 package a1;
 
+
 import java.util.Scanner;  // Import the Scanner class
 
 public class A1Main {
@@ -12,12 +13,15 @@ public class A1Main {
          Summer object can deal with up to 30 ints sent to it */
      
         /*Your code here */
-
+        Summer evenSummer = new Summer(30);
+        Summer oddSummer = new Summer(30);
         /* Now get a single integer from the scanner
          lets refer to that int as N
          we will use N as an upper limit in a for loop */
 
         /*Your code here */
+        int upperLimit = Integer.parseInt(input.nextLine());
+
         
         // Now loop N times.
         /* In each loop iteration do these things:
@@ -28,6 +32,15 @@ public class A1Main {
            -- if that int is odd, send it to the odd Summer obj
               by calling its "add" method
          The loop ends when all N integers have been obtained from input */
+        for (int i = 1; i <= upperLimit; i++) {
+            int newInt = Integer.parseInt(input.nextLine());
+            if (newInt % 2 == 0) {
+                evenSummer.add(newInt);
+            }
+            else {
+                oddSummer.add(newInt);
+            }
+        }
 
         // That loop has now "loaded" each of the two Summer objects
         // with data from input
@@ -40,7 +53,7 @@ public class A1Main {
          and we are done.  Hint:  This is easier with the printStats method. */
 
         /*Your code here */
-       
+       printStats(evenSummer, oddSummer);
   } 
 
       
@@ -52,40 +65,63 @@ public class A1Main {
     
       System.out.print("Number of evens: ");
       /*Your code here */
+      System.out.print(evenSummer.count());
       System.out.println();
+
       System.out.print("Sum of evens: ");
       /*Your code here */
+      System.out.print(evenSummer.sum());
       System.out.println();
+
       System.out.print("Average of evens: ");
       /*Your code here */
+      System.out.print(evenSummer.average());
       System.out.println();
+
       System.out.print("Largest even: ");
       /*Your code here */
+      System.out.print(evenSummer.high());
       System.out.println();
+
       System.out.print("Smallest even: ");
       /*Your code here */
+      System.out.print(evenSummer.low());
       System.out.println();
+
       System.out.print("Average of evens over 10: ");
       /*Your code here */
+      System.out.print(evenSummer.avgOver(10));
       System.out.println();
-      
+
+
       System.out.print("Number of odds: ");
       /*Your code here */
+      System.out.print(oddSummer.count());
       System.out.println();
+
       System.out.print("Sum of odds: ");
       /*Your code here */
+      System.out.print(oddSummer.sum());
       System.out.println();
+
       System.out.print("Average of odds: ");
       /*Your code here */
+      System.out.print(oddSummer.average());
       System.out.println();
+
       System.out.print("Largest odd: ");
       /*Your code here */
+      System.out.print(oddSummer.high());
       System.out.println();
+
       System.out.print("Smallest odd: ");
       /*Your code here */
+      System.out.print(oddSummer.low());
       System.out.println();
+
       System.out.print("Average of odds over 10: ");
       /*Your code here */
+      System.out.print(oddSummer.avgOver(10));
       System.out.println();
   }
 

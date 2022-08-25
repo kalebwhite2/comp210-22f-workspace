@@ -11,6 +11,7 @@ package a1;
 public class Summer {
    private int[] nums;
    // Any other data fields you decide you need can go here.
+   private int nextIndex;
 
    public Summer(int n) {
       /* In this constructor, first allocate an array that hold n ints and put that in nums.
@@ -18,11 +19,15 @@ public class Summer {
       you would need to do something with that field here.
       */
       /*Your code here */
+      nums = new int[n];
+      nextIndex = 0;
    }
 
    public void add( int num ) {
      // In this method, take the parameter num and put that value into the Summer.
       /*Your code here */
+      nums[nextIndex] = num;
+      nextIndex++;
    }
    
    public int sum ( ) { 
@@ -31,6 +36,11 @@ public class Summer {
       Note that the sum of ints is of type int, so return the int sum you get.  */
 
       /*Your code here*/
+      int sum = 0;
+      for (int i = 0; i < nums.length - 1; i++) {
+         sum += nums[i];
+      }
+      return sum;
    }
    
    public int high ( ) { 
@@ -38,6 +48,14 @@ public class Summer {
       and return it. */
 
       /*Your code here */
+      //
+      int high = Integer.MIN_VALUE;
+      for (int i = 0; i < nums.length - 1; i++) {
+         if (nums[i] > high & nums[i] != 0) {
+            high = nums[i];
+         }
+      }
+      return high;
    }
    
    public int low ( ) { 
@@ -45,6 +63,13 @@ public class Summer {
       and return it. */
 
       /*Your code here */
+      int low = Integer.MAX_VALUE;
+      for (int i = 0; i < nums.length - 1; i++) {
+         if (nums[i] < low & nums[i] != 0) {
+            low = nums[i];
+         }
+      }
+      return low;
    }
    
    public double average( ) {
@@ -62,7 +87,27 @@ public class Summer {
        */
 
       /*Your code here */
+      if (nums.length == 0) {
+         return 0.0;
+      }
 
+      //tried to standardize this to make it easier to figure out what was going wrong
+      else {
+         double sumOfNumbers = 0.0;
+         double amountOfNumbers = 0.0;
+
+         for (int integer: nums) {
+            sumOfNumbers += integer;
+         }
+
+         for (int integer: nums) {
+            if (integer != 0) {
+               amountOfNumbers += 1;
+            }
+         }
+
+         return sumOfNumbers / amountOfNumbers;
+      }
    }
    
    public double avgOver( int thresh ) {
@@ -81,12 +126,43 @@ public class Summer {
    */
 
       /*Your code here */
+      double sumOfNumbers = 0.0;
+      for (int integer: nums) {
+         if (integer > thresh) {
+            sumOfNumbers += integer;
+         }
+      }
+      if (sumOfNumbers == 0) {
+         return 0.0;
+      }
+
+      //also tried to standardize here to figure out what's happening
+      else {
+         double amountOfNumbers = 0.0;
+
+         for (int integer: nums) {
+            if (integer != 0) {
+               if (integer > thresh) {
+                  amountOfNumbers += 1;
+               }
+            }
+         }
+
+         return sumOfNumbers / amountOfNumbers;
+      }
+
    }
    
    public int count ( ) {  
      //Return the number of ints that have been stored in the array.
        
      /*Your code here */
-
+      int count = 0;
+      for (int i: nums) {
+         if (i != 0) {
+            count++;
+         }
+      }
+      return count;
    }
 }
