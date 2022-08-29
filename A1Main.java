@@ -20,7 +20,7 @@ public class A1Main {
          we will use N as an upper limit in a for loop */
 
         /*Your code here */
-        int upperLimit = Integer.parseInt(input.nextLine());
+        int upperLimit = input.nextInt();
 
         
         // Now loop N times.
@@ -33,7 +33,7 @@ public class A1Main {
               by calling its "add" method
          The loop ends when all N integers have been obtained from input */
         for (int i = 1; i <= upperLimit; i++) {
-            int newInt = Integer.parseInt(input.nextLine());
+            int newInt = input.nextInt();
             if (newInt % 2 == 0) {
                 evenSummer.add(newInt);
             }
