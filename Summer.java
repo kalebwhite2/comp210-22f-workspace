@@ -37,7 +37,7 @@ public class Summer {
 
       /*Your code here*/
       int sum = 0;
-      for (int i = 0; i < nums.length - 1; i++) {
+      for (int i = 0; i < this.count(); i++) {
          sum += nums[i];
       }
       return sum;
@@ -50,11 +50,17 @@ public class Summer {
       /*Your code here */
       //
       int high = Integer.MIN_VALUE;
-      for (int i = 0; i < nums.length - 1; i++) {
+      for (int i = 0; i < this.count(); i++) {
          if (nums[i] > high & nums[i] != 0) {
             high = nums[i];
          }
       }
+
+      //edge-case for empty array
+      if (high == Integer.MIN_VALUE) {
+         high = 0;
+      }
+
       return high;
    }
    
@@ -64,11 +70,17 @@ public class Summer {
 
       /*Your code here */
       int low = Integer.MAX_VALUE;
-      for (int i = 0; i < nums.length - 1; i++) {
+      for (int i = 0; i < this.count(); i++) {
          if (nums[i] < low & nums[i] != 0) {
             low = nums[i];
          }
       }
+
+      //edge-case for empty array
+      if (low == Integer.MAX_VALUE) {
+         low = 0;
+      }
+
       return low;
    }
    
@@ -87,7 +99,17 @@ public class Summer {
        */
 
       /*Your code here */
+      //guarding against no-value array edge case
       if (nums.length == 0) {
+         return 0.0;
+      }
+
+      //guarding against initialized array with no values filled in, in all instances of which the sum of the array will be 0
+      int sumOfArray = 0;
+      for (int integer: nums) {
+         sumOfArray += integer;
+      }
+      if (sumOfArray == 0) {
          return 0.0;
       }
 
