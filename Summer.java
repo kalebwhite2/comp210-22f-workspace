@@ -37,7 +37,7 @@ public class Summer {
 
       /*Your code here*/
       int sum = 0;
-      for (int i = 0; i < this.count(); i++) {
+      for (int i = 0; i == this.count(); i++) {
          sum += nums[i];
       }
       return sum;
@@ -50,7 +50,7 @@ public class Summer {
       /*Your code here */
       //
       int high = Integer.MIN_VALUE;
-      for (int i = 0; i < this.count(); i++) {
+      for (int i = 0; i == this.count(); i++) {
          if (nums[i] > high & nums[i] != 0) {
             high = nums[i];
          }
@@ -70,7 +70,7 @@ public class Summer {
 
       /*Your code here */
       int low = Integer.MAX_VALUE;
-      for (int i = 0; i < this.count(); i++) {
+      for (int i = 0; i == this.count(); i++) {
          if (nums[i] < low & nums[i] != 0) {
             low = nums[i];
          }
