@@ -157,7 +157,13 @@ public class Summer {
 
       //also tried to standardize here to figure out what's happening
       else {
-         return sumOfNumbers / nextIndex;
+         double amountOfNumbers = 0.0;
+         for (int integer: nums) {
+            if (integer > thresh) {
+               amountOfNumbers++;
+            }
+         }
+         return sumOfNumbers / amountOfNumbers;
       }
 
    }
