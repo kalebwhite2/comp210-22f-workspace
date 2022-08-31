@@ -52,7 +52,7 @@ public class Summer {
       /*Your code here */
       //
       int high = Integer.MIN_VALUE;
-      int[] subset = Arrays.copyOf(nums, nextIndex - 1);
+      int[] subset = Arrays.copyOf(nums, nextIndex);
       for (int num : subset) {
          if (num > high) {
             high = num;
@@ -73,7 +73,7 @@ public class Summer {
 
       /*Your code here */
       int low = Integer.MAX_VALUE;
-      int[] subset = Arrays.copyOf(nums, nextIndex - 1);
+      int[] subset = Arrays.copyOf(nums, nextIndex);
       for (int num : subset) {
          if (num < low) {
             low = num;
