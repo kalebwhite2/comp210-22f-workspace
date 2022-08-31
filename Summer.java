@@ -8,6 +8,8 @@ package a1;
  return statements... so you need to add them.
 */
 
+import java.util.Arrays;
+
 public class Summer {
    private int[] nums;
    // Any other data fields you decide you need can go here.
@@ -50,8 +52,9 @@ public class Summer {
       /*Your code here */
       //
       int high = Integer.MIN_VALUE;
-      for (int num : nums) {
-         if (num > high & num != 0) {
+      int[] subset = Arrays.copyOf(nums, nextIndex - 1);
+      for (int num : subset) {
+         if (num > high) {
             high = num;
          }
       }
@@ -70,8 +73,9 @@ public class Summer {
 
       /*Your code here */
       int low = Integer.MAX_VALUE;
-      for (int num : nums) {
-         if (num < low & num != 0) {
+      int[] subset = Arrays.copyOf(nums, nextIndex - 1);
+      for (int num : subset) {
+         if (num < low) {
             low = num;
          }
       }
@@ -116,19 +120,12 @@ public class Summer {
       //tried to standardize this to make it easier to figure out what was going wrong
       else {
          double sumOfNumbers = 0.0;
-         double amountOfNumbers = 0.0;
 
          for (int integer: nums) {
             sumOfNumbers += integer;
          }
 
-         for (int integer: nums) {
-            if (integer != 0) {
-               amountOfNumbers += 1;
-            }
-         }
-
-         return sumOfNumbers / amountOfNumbers;
+         return sumOfNumbers / nextIndex;
       }
    }
    
@@ -160,17 +157,7 @@ public class Summer {
 
       //also tried to standardize here to figure out what's happening
       else {
-         double amountOfNumbers = 0.0;
-
-         for (int integer: nums) {
-            if (integer != 0) {
-               if (integer > thresh) {
-                  amountOfNumbers += 1;
-               }
-            }
-         }
-
-         return sumOfNumbers / amountOfNumbers;
+         return sumOfNumbers / nextIndex;
       }
 
    }
@@ -179,12 +166,6 @@ public class Summer {
      //Return the number of ints that have been stored in the array.
        
      /*Your code here */
-      int count = 0;
-      for (int i: nums) {
-         if (i != 0) {
-            count++;
-         }
-      }
-      return count;
+      return nextIndex;
    }
 }
