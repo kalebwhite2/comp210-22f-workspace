@@ -53,7 +53,68 @@ public class A1Main {
          and we are done.  Hint:  This is easier with the printStats method. */
 
         /*Your code here */
-       printStats(evenSummer, oddSummer);
+       //printStats(evenSummer, oddSummer);
+        System.out.print("Number of evens: ");
+        /*Your code here */
+        System.out.print(evenSummer.count());
+        System.out.println();
+
+        System.out.print("Sum of evens: ");
+        /*Your code here */
+        System.out.print(evenSummer.sum());
+        System.out.println();
+
+        System.out.print("Average of evens: ");
+        /*Your code here */
+        System.out.print(evenSummer.average());
+        System.out.println();
+
+        System.out.print("Largest even: ");
+        /*Your code here */
+        System.out.print(evenSummer.high());
+        System.out.println();
+
+        System.out.print("Smallest even: ");
+        /*Your code here */
+        System.out.print(evenSummer.low());
+        System.out.println();
+
+        System.out.print("Average of evens over 10: ");
+        /*Your code here */
+        System.out.print(evenSummer.avgOver(10));
+        System.out.println();
+
+
+        System.out.print("Number of odds: ");
+        /*Your code here */
+        System.out.print(oddSummer.count());
+        System.out.println();
+
+        System.out.print("Sum of odds: ");
+        /*Your code here */
+        System.out.print(oddSummer.sum());
+        System.out.println();
+
+        System.out.print("Average of odds: ");
+        /*Your code here */
+        System.out.print(oddSummer.average());
+        System.out.println();
+
+        System.out.print("Largest odd: ");
+        /*Your code here */
+        System.out.print(oddSummer.high());
+        System.out.println();
+
+        System.out.print("Smallest odd: ");
+        /*Your code here */
+        System.out.print(oddSummer.low());
+        System.out.println();
+
+        System.out.print("Average of odds over 10: ");
+        /*Your code here */
+        System.out.print(oddSummer.avgOver(10));
+        System.out.println();
+
   } 
 
       
