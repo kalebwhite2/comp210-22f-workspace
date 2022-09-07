@@ -21,7 +21,14 @@ public class LinkedList implements List {
       //Hint: Remember that we start indexing with 0 rather than 1.
 
       /*Your code here */
-      return false;  //Remove this when you implement the method!
+    if (index<0 || index>=this.size) { return false; }
+    Node current = this.head;
+    //point to the correct node vv
+    for (int i = 0; i < index; i++){
+      current = current.getNext();
+    }
+    current.setValue(element);
+    return true;
   }
       
   public int findLast ( double element ) {
@@ -29,14 +36,32 @@ public class LinkedList implements List {
     //Hint: Make sure you understand how this is different from find
 
     /*Your code here */
-    return -1;  //Remove this when you implement the method!
+    Node current = this.head;
+    int index = 0;
+    boolean found = false;
+    for (int i = 0; i < this.size; i++){
+      if (current.getValue() == element) {index = i; found = true;}
+      current = current.getNext();
+    }
+    if (found) {return index;}
+    else {return -1;}
   }
 
   public boolean inSort ( double elt ) {
     //See List.java for a description of the method's behavior and examples.
 
     /*Your code here */
-    return false;  //Remove this when you implement the method!
+    Node current = this.head;
+    if (current.getValue() > elt) {this.ins(0, elt); return true;}
+    //this.size-1 because we want it to stop before it tries to call get next on the last index
+    for (int i = 0; i < this.size-1; i++){
+      Node temp = current.getNext();
+      if (current.getValue() <= elt && temp.getValue() > elt) {this.ins(i + 1, elt); return true;}
+      current = current.getNext();
+    }
+    //tail
+    if (current.getValue() <= elt) {this.ins(this.size, elt); return true;}
+    else {return false;}
   }
    
   public boolean bubbleIns  ( double elt ) {
@@ -44,7 +69,14 @@ public class LinkedList implements List {
     //Hint: Do any of the methods already provided to you help?
 
     /*Your code here */
-    return false;  //Remove this when you implement the method!
+    Node current = this.head;
+    int index = this.find(elt);
+    if (!(index == -1)) {this.rem(index);}
+    else {this.size++;}
+    boolean succeedAdd = this.ins(0, elt);
+
+    if (succeedAdd) {return true;}
+    else {return false;}
   }
   
   /* Implementation given to you. Do not modify below this. */

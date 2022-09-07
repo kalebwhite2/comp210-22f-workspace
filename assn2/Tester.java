@@ -123,4 +123,67 @@ public class Tester {
       return;
    }
 
+   public void set (List ls) {
+       System.out.println("== Test of set =========");
+       ls.clear();
+       ls.ins(0,8.2); ls.ins(1,-7.3); ls.ins(2,3.4); ls.ins(3, 5.0); ls.ins(4,3.4);ls.ins(5,2.1);
+       System.out.println(ls.set(2, 1.9));
+       System.out.println(ls.get(0) + " should be 8.2");
+       System.out.println(ls.get(1) + " should be -7.3");
+       System.out.println(ls.get(2) + " should be 1.9");
+       System.out.println(ls.get(3) + " should be 5.0");
+   }
+
+    public void findLast (List ls) {
+        System.out.println("== Test of findLast =========");
+        ls.clear();
+        ls.ins(0,8.2); ls.ins(1,-7.3); ls.ins(2,3.4); ls.ins(3, 5.0); ls.ins(4,3.4);ls.ins(5,2.1);
+        System.out.println(ls.findLast(3.4) + " should be 4");
+        System.out.println(ls.findLast(1.2) + " should be -1");
+    }
+
+    public void inSort (List ls) {
+        System.out.println("== Test of inSort =========");
+        ls.clear(); //3.1, 5.5, 18.2, 23.01 --> 3.1, 5.5, 7.1, 18.2, 23.01
+        ls.ins(0,3.1); ls.ins(1,5.5); ls.ins(2,18.2); ls.ins(3, 23.01);
+        System.out.println("== Test 1 ==");
+        System.out.println(ls.inSort(7.1));
+        System.out.println(ls.get(1) + " should be 5.5");
+        System.out.println(ls.get(2) + " should be 7.1");
+        System.out.println(ls.get(3) + " should be 18.2");
+        System.out.println("== Test 2 ==");
+        ls.rem(2); //3.1, 5.5, 18.2, 23.01 --> 3.1, 5.5, 18.2, 23.01, 55.2
+        System.out.println(ls.inSort(55.2));
+        System.out.println(ls.get(3) + " should be 23.01");
+        System.out.println(ls.get(4) + " should be 55.2");
+        System.out.println("== Test 3 ==");
+        ls.clear();
+        ls.ins(0,1.2); ls.ins(1,5.5); ls.ins(2,17.03); ls.ins(3, 12.8); ls.ins(4, 6.6);
+        System.out.println(ls.inSort(19.0));
+        System.out.println(ls.get(4) + " should be 6.6");
+        System.out.println(ls.get(5) + " should be 19.0");
+    }
+
+    public void bubbleIns (List ls) {
+        System.out.println("== Test of bubbleIns =========");
+        ls.clear();
+        ls.ins(0,11.3); ls.ins(1,45.1); ls.ins(2,-5.6); ls.ins(3, 17.3);
+        System.out.println("== Test 1 ==");
+        System.out.println(ls.bubbleIns(21.0));
+        System.out.println(ls.get(0) + " should be 21.0");
+        System.out.println(ls.get(1) + " should be 11.3");
+        System.out.println("== Test 2 ==");
+        ls.rem(0);
+        System.out.println(ls.bubbleIns(-5.6));
+        System.out.println(ls.get(2) + " should be 45.1");
+        System.out.println(ls.get(0) + " should be -5.6");
+        System.out.println("== Test 3 ==");
+        ls.rem(0); ls.ins(2,-5.6); ls.ins(4,45.1); ls.ins(5,11.3);
+        System.out.println(ls.bubbleIns(45.1));
+        System.out.println(ls.get(0) + " should be 45.1");
+        System.out.println(ls.get(1) + " should be 11.3");
+        System.out.println(ls.get(4) + " should be 45.1");
+        System.out.println(ls.get(5) + " should be 11.3");
+    }
+
 }

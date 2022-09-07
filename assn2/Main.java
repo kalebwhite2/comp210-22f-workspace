@@ -16,5 +16,9 @@ public class Main {
       tst.isEmpty(lst);
       tst.size(lst);
       tst.clear(lst);
+      tst.set(lst);
+      tst.findLast(lst);
+      tst.inSort(lst);
+      tst.bubbleIns(lst);
   }
 }

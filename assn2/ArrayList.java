@@ -34,9 +34,13 @@ public class ArrayList implements List {
       //Hint: Remember that we start indexing with 0 rather than 1.
 
       /*Your code here */	
-	
-	  
-    return false;  //Remove this when you implement the method!
+	if (index >= this.size) {
+        return false;
+    }
+    else {
+        this.elts[index] = element;
+        return true;
+    }
   }
       
   public int findLast ( double element ) {
@@ -44,16 +48,52 @@ public class ArrayList implements List {
     //Hint: Make sure you understand how this is different from find
 	  
     /*Your code here */
+      // one variable to hold the last index, one to record whether it was found or not
+      int lastIndex = 0;
+      boolean foundIndex = false;
 
-    return -1;  //Remove this when you implement the method!
+      //look for any index where that element equals the parameter element and replace lastIndex if it does
+      //also set foundIndex to true
+      for (int i  = 0; i < this.size; i++) {
+          if (elts[i] == element) {lastIndex = i; foundIndex = true;}
+      }
+
+      // if found, return where found at, if not return -1
+      if (foundIndex) {
+          return lastIndex;
+      }
+      else {
+          return -1;
+      }
   }
 
   public boolean inSort ( double elt ) {
     //See List.java for a description of the method's behavior and examples.
 
     /*Your code here */
-	  
-    return false;  //Remove this when you implement the method!
+      // empty list
+      if (this.isEmpty()) {this.ins(0, elt); return true;}
+      // smaller than head
+      else if (this.elts[0] > elt) {this.ins(0, elt); return true;}
+
+      //inSort
+      for (int i  = 0; i < this.size; i++) {
+          //we will want to check i and i+1, not i and i-1, because i starts at 0
+          if (elts[i] <= elt && elts[i+1] > elt){
+              boolean succeedAdd = this.ins(i+1,elt);
+              return succeedAdd;
+          }
+      }
+
+      //if the last index (this.size()-1) is less than or equal to elt, insert elt
+      //at the end of the list (the index of which is this.size()).
+      //this assumes that there is no case in which elt can be bigger
+      //than some element in the list and be smaller than the last element
+      if (this.elts[this.size()-1] <= elt) {
+          boolean succeedAdd = this.ins(this.size(),elt);
+          return succeedAdd;
+        }
+      else { return false; }
   }
    
   public boolean bubbleIns  ( double elt ) {
@@ -62,8 +102,18 @@ public class ArrayList implements List {
     //Hint: Do any of the methods you're already given help? 
 
     /*Your code here */
-	  
-    return false;  //Remove this when you implement the method!
+      // for tracking whether the list changes worked
+      boolean succeedAdd;
+
+      int index = this.find(elt);
+      // if it found an index (indicated by it not not finding an index), remove that one
+      if (!(index == -1)) {this.rem(index);}
+      else {this.size++;}
+      succeedAdd = this.ins(0, elt);
+
+      //if add succeeded, return true
+      if (succeedAdd) {return true;}
+      else {return false;}
   }
 	
    /* Implementation given to you. Do not modify below this. */
