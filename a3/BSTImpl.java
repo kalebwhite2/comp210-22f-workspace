@@ -1,6 +1,9 @@
 
 package a3;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class BSTImpl implements BST {
 
     private Node root;
@@ -115,8 +118,72 @@ public class BSTImpl implements BST {
         /*Your code here */
         /* Hint: Don't forget to update size */
         /* Hint: You can find examples of how to create a new Node object elsewhere in the code */
+        //if the val is already in the tree just return val
+        //if(this.contains(val)) {return val;}
 
-      return 0; // Dummy return statement.  Remove when you implement!
+        Node newNode = new NodeImpl(null, null, val);
+        //System.out.println("insert called with value " + Integer.toString(newNode.getValue()));
+        //empty list
+        if (this.root == null) {
+            this.root = newNode;
+            this.size++;
+            return val;
+        }
+
+        return this.recurI(val, this.root, newNode);
+
+        /* non-recursive implementation
+        boolean wentLeft = false;
+        Node curr = this.root;
+
+        for (boolean success = false; !success;) {
+            System.out.println("entered loop with success = " + Boolean.toString(success) + " and size = " + Integer.toString(this.size));
+            Node left = curr.getLeft();
+            Node right = curr.getRight();
+            Node prev = curr;
+
+            //curr should end up in the position that newNode is supposed to be in
+            //we just need to track where it came from and which direction it went
+            //represented by prev, wentLeft
+            if (left == null && right == null) {
+                System.out.println("entered if statement, since left == null was " + Boolean.toString(left == null) + " and right == null was " + Boolean.toString(right == null));
+                success = true;
+                this.size++;
+                if (wentLeft) {prev.setLeft(newNode);}
+                else {prev.setRight(newNode);}
+            }
+
+            if (val < curr.getValue()) {curr = left; wentLeft = true;}
+            else {curr = right; wentLeft = false;}
+
+
+        }
+         */
+    }
+
+    private int recurI(int val, Node c, Node newNode) {
+        //base case
+        Node left = c.getLeft();
+        Node right = c.getRight();
+        boolean goLeft;
+
+        //System.out.println("Is " + Integer.toString(c.getValue()) + " more than " + Integer.toString(val) + "? " + Boolean.toString(c.getValue() > val));
+        if (c.getValue() > val) goLeft = true;
+        else goLeft = false;
+
+        if (c.getValue() == val) return val;
+
+        if ((left == null && goLeft) || (right == null && !goLeft)) {
+            if (goLeft) {c.setLeft(newNode);}
+            else {c.setRight(newNode);}
+            this.size++;
+            return val;
+        }
+
+        else {
+            if (goLeft) return recurI(val, c.getLeft(), newNode);
+            else return recurI(val, c.getRight(), newNode);
+        }
     }
 
     @Override
@@ -124,8 +191,15 @@ public class BSTImpl implements BST {
     public int findMin() {
         /*See BST.java for method specification */
         /* Your code here */
-        
-        return Integer.MAX_VALUE; // Dummy return statement.  Remove when you implement!
+        if (this.root == null) {return Integer.MAX_VALUE;}
+        else return findMin_r(this.root);
+    }
+
+    private int findMin_r(Node c) {
+        Node left = c.getLeft();
+
+        if (left == null) return c.getValue();
+        else return findMin_r(left);
     }
     
     @Override
@@ -133,9 +207,15 @@ public class BSTImpl implements BST {
     public int findMax() {
         /*See BST.java for method specification */
         /* Your code here */
+        if (this.root == null) {return Integer.MAX_VALUE;}
+        else return findMax_r(this.root);
+    }
 
-       return Integer.MIN_VALUE; // Dummy return statement.  Remove when you implement!
+    private int findMax_r(Node c) {
+        Node right = c.getRight();
 
+        if (right == null) return c.getValue();
+        else return findMax_r(right);
     }
     
     @Override
@@ -144,8 +224,28 @@ public class BSTImpl implements BST {
         /*See BST.java for method specification */
         /* Hint: Make sure you return a Node, not an int */
         /* Your code here */
+        //edge cases
+        if (this.root == null) return null;
+        else if (this.root.getValue() == val) return this.root;
 
-      return null; // Dummy return statement.  Remove when you implement!
+        //r func call
+        else return get_r(val, this.root);
+    }
+
+    private Node get_r(int val, Node c){
+        if (c.getValue() == val) return c;
+
+        Node left = c.getLeft();
+        Node right = c.getRight();
+
+        if (val > c.getValue() && !(right == null)) return get_r(val, c.getRight());
+        else if (val < c.getValue() && !(left == null)) return get_r(val, c.getLeft());
+        else return null;
+
+        /* this doesn't work because what if val doesn't exist
+        else if (val > c.getValue()) return get_r(val, c.getRight());
+        else return get_r(val, c.getLeft());
+         */
     }
     
     @Override
@@ -154,10 +254,24 @@ public class BSTImpl implements BST {
         /*See BST.java for method specification */
         /* Hint: How can you "break-up" the problem into smaller pieces? */
         /* Your code here */
-
-        return false; // Dummy return statement.  Remove when you implement!
+        if (this.root == null) return true;
+        else return isFullTree_r(this.root);
     }
-    
+
+    private boolean isFullTree_r(Node c) {
+        Node right = c.getRight();
+        Node left = c.getLeft();
+        //only one child
+        if (right == null && !(left == null)) return false;
+        else if (!(right == null) && left == null) return false;
+
+        //no children
+        else if (right == null && left == null) return true;
+
+        //the only other case: two children
+        return isFullTree_r(c.getLeft()) && isFullTree_r(c.getRight());
+    }
+
     @Override
     // interface method ==================================================
     public int merge(BST nbt) {
@@ -168,16 +282,118 @@ public class BSTImpl implements BST {
       // have to somehow count when an add is successful
       // so we can return the number of nodes added
          /* Your code here */
-        
-        return 0;  // Dummy return statement.  Remove when you implement!
+        int newSize = 0;
+        if (nbt.getRoot() == null) return this.size;
+        Node c = nbt.getRoot();
+        int ret = merge_r(c, newSize);
+        this.size += ret;
+        return ret;
+    }
+
+    private int merge_r(Node c,  int hold) {
+        //base case
+        if (c.getLeft() == null && c.getRight() == null) {
+            this.insert(c.getValue());
+            hold++;
+            //System.out.println("found no children. merge size currently is: " + hold);
+            return hold;
+        }
+
+        //if only one node exists
+       if (c.getLeft() == null && c.getRight() != null) {
+           this.insert(c.getValue());
+           hold++;
+           hold = merge_r(c.getRight(), hold);
+           //System.out.println("found one child. merge size currently is: " + hold);
+           return hold;
+       }
+
+       if (c.getLeft() != null && c.getRight() == null) {
+           this.insert(c.getValue());
+           hold++;
+           hold = merge_r(c.getLeft(), hold);
+           //System.out.println("found one child. merge size currently is: " + hold);
+           return hold;
+       }
+
+       //both nodes exist
+       else {
+           this.insert(c.getValue());
+           hold++;
+           hold = merge_r(c.getLeft(), hold);
+           //System.out.println("processed left node. merge size currently is " + hold);
+           hold = merge_r(c.getRight(), hold);
+           //System.out.println("found two children. merge size currently is: " + hold);
+           return hold;
+       }
     }
 
     public int getMaxLeafHeightDiff () {
         /*See BST.java for method specification */
         /* Hint: Which of the methods you're given are most similar to this? */
         /* Your code here */
-        
-        return 0;// Dummy return statement.  Remove when you implement!
+        if (this.root == null) return 0;
+        if (this.root.getLeft() == null && this.root.getRight() == null) return 0;
+        else {
+            int max = getMaxLeafHeightDiff_max(this.root, 0);
+            System.out.println(max);
+            int min = getMaxLeafHeightDiff_min(this.root, 0);
+            System.out.println(min);
+            return max - min;
+        }
     }
 
+    private int getMaxLeafHeightDiff_min(Node c, int height){
+        //base case
+        if (c.getLeft() == null && c.getRight() == null) {
+            return height;
+        }
+
+        //if only one node exists
+        if (c.getLeft() == null && c.getRight() != null) {
+            height ++;
+            return getMaxLeafHeightDiff_min(c.getRight(), height);
+        }
+
+        if (c.getLeft() != null && c.getRight() == null) {
+            height ++;
+            return getMaxLeafHeightDiff_min(c.getLeft(), height);
+        }
+
+        //both nodes exist
+        else {
+            height++;
+            int a = getMaxLeafHeightDiff_min(c.getLeft(), height);
+            int b = getMaxLeafHeightDiff_min(c.getRight(), height);
+            if (a<b) return a;
+            else return b;
+        }
+    }
+
+    private int getMaxLeafHeightDiff_max(Node c, int height) {
+         //base case
+        if (c.getLeft() == null && c.getRight() == null) {
+            return height;
+        }
+
+        //if only one node exists
+       if (c.getLeft() == null && c.getRight() != null) {
+           height ++;
+           return getMaxLeafHeightDiff_max(c.getRight(), height);
+       }
+
+       if (c.getLeft() != null && c.getRight() == null) {
+           height ++;
+           return getMaxLeafHeightDiff_max(c.getLeft(), height);
+       }
+
+       //both nodes exist
+       else {
+           height++;
+           int a = getMaxLeafHeightDiff_max(c.getLeft(), height);
+           int b = getMaxLeafHeightDiff_max(c.getRight(), height);
+           if (a>b) return a;
+           else return b;
+       }
+    }
 }

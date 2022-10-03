@@ -27,8 +27,12 @@ public class Main {
       //tst.emptyTree(bst);
       //tst.insert(bst);
       //tst.remove(bst);
-      //tst.merge(bst);
- 
+       //tst.merge(bst);
+       //tst.get(bst);
+      //tst.isFullBT(bst);
+       //tst.findMin(bst);
+       //tst.findMax(bst);
+       //tst.getMaxLeafHeightDiff(bst);
       // etc...
       
     }
